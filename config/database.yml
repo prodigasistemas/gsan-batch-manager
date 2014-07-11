@@ -1,0 +1,20 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: comercial
+  host: 10.20.100.38
+  pool: 5
+  username: pamela
+  password: pamela
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: comercial_test
+
+#production:
+  #adapter: postgresql
+  #encoding: unicode
+  #database: gsan-batch-manager_production
+  #username: gsan-batch-manager
+  #password:
