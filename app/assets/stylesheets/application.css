@@ -11,5 +11,7 @@
  *= require_self
  *= require bootstrap
  *= require dashboard
+ *= require jquery-ui
+ *= require jquery-ui.theme
  *= require_tree .
  */

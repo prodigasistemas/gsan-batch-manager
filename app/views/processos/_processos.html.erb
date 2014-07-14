@@ -1,0 +1,30 @@
+<h3><%= title.capitalize %> (<%= processos.count %>)</h3>
+<hr/>
+<div class="table-responsive">
+  <%= paginate processos %>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Processo</th>
+        <th>Grupo</th>
+        <th>Início</th>
+        <th>Término</th>
+        <th>Usuário</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% processos.each do |processo| %>
+      <tr>
+        <td><%= processo.id %></td>
+        <td><%= processo.nome %></td>
+        <td><%= processo.grupo unless processo.grupo.blank? %></td>
+        <td><%= processo.hora_inicio.strftime('%d/%M/%Y %H:%M:%S') unless processo.hora_inicio.blank? %></td>
+        <td><%= processo.hora_termino.strftime('%d/%M/%Y %H:%M:%S') unless processo.hora_termino.blank? %></td>
+        <td><%= processo.usuario.nome %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate processos %>
+</div>

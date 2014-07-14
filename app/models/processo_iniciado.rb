@@ -22,6 +22,10 @@ class ProcessoIniciado < ActiveRecord::Base
     processo.nome
   end
 
+  def nome_usuario
+    usuario.nome
+  end
+
   class << self
     def em_espera
       joins(:situacao).where("processo_situacao.prst_dsprocessosituacao = 'EM ESPERA'")
