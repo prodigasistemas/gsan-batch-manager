@@ -1,13 +1,23 @@
 <h3>Filtros</h3>
 <hr/>
-<%= form_tag filtrar_processos_path, class: "form-inline", role: "form" do |f| %>
+<%= form_tag filtrar_processos_path, method: :get, class: "form-inline", role: "form" do |f| %>
   <div class="form-group">
     <%= text_field_tag :processo, params[:term], id: "processos-search", placeholder: "tipo de processo", class: "form-control" %>
   </div>
   <div class="form-group">
     <%= text_field_tag :usuario, params[:term], id: "usuarios-search", placeholder: "usuário", class: "form-control" %>
   </div>
-  <%= hidden_field_tag :situacao, @title %>
-  <%= button_tag "Pesquisar", class: "btn btn-primary" %>
+  <div class="form-group">
+    <%= text_field_tag :data_processo_inicio, '', :"data-date-mask" =>"dd/MM/yyyy hh:mm:ss", :"data-date-format" => "dd/MM/yyyy  hh:mm:ss", placeholder: "início do processo", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= text_field_tag :data_processo_final, '', :"data-date-mask" =>"dd/MM/yyyy hh:mm:ss", :"data-date-format" => "dd/MM/yyyy  hh:mm:ss", placeholder: "final do processo", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= hidden_field_tag :situacao, @title, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= button_tag "Pesquisar", class: "btn btn-primary" %>
+  </div>
 <% end %>
 <%= render partial: "processos", locals: { title: @title, processos: @processos } %>

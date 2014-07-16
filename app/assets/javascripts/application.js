@@ -11,8 +11,13 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery-ui
-//= require jquery_ujs
-//= require turbolinks
+//= require jquery-ui/core
+//= require jquery-ui/widget
+//= require jquery-ui/mouse
+//= require jquery-ui/position
+//= require jquery-ui/autocomplete
+//= require jquery-ui/menu
 //= require bootstrap
+//= require bootstrap-datetimepicker
+//= require turbolinks
 //= require_tree .
