@@ -7,6 +7,8 @@ class ProcessoIniciado < ActiveRecord::Base
   belongs_to :processo_pai, class_name: 'ProcessoIniciado', foreign_key: 'proi_id'
   belongs_to :situacao, class_name: 'ProcessoSituacao', foreign_key: 'prst_id'
 
+  has_many :parametros, class_name: "ProcessoParametro", foreign_key: 'proi_id'
+
   alias_attribute 'id', 'proi_id'
   alias_attribute 'precedente', 'proi_idprecedente'
   alias_attribute 'agendamento', 'proi_tmagendamento'

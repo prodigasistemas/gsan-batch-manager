@@ -18,6 +18,5 @@
 //= require jquery-ui/autocomplete
 //= require jquery-ui/menu
 //= require bootstrap
-//= require bootstrap-datetimepicker
 //= require turbolinks
 //= require_tree .
