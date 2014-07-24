@@ -2,6 +2,8 @@ class ProcessoIniciado < ActiveRecord::Base
   self.table_name='batch.processo_iniciado'
   self.primary_key='proi_id'
 
+  before_create :generate_id
+
   belongs_to :usuario, class_name: 'Usuario', foreign_key: 'usur_id'
   belongs_to :processo, class_name: 'Processo', foreign_key: 'proc_id'
   belongs_to :processo_pai, class_name: 'ProcessoIniciado', foreign_key: 'proi_id'
@@ -60,5 +62,12 @@ class ProcessoIniciado < ActiveRecord::Base
     def inicio_a_comandar
       joins(:situacao).where("processo_situacao.prst_dsprocessosituacao = 'INICIO_A_COMANDAR'")
     end
+  end
+
+  private
+
+  def generate_id
+    result = ProcessoIniciado.connection.select_value("select nextval('batch.seq_processo_iniciado')")
+    self.id = result
   end
 end

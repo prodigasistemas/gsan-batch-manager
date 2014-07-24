@@ -4,4 +4,6 @@
 
 $(document).ready ->
   $("#processos-search").autocomplete({source: '/pesquisar/processos.json'})
+  $("#novo-processo-search").autocomplete({source: '/pesquisar/processos.json'})
   $("#usuarios-search").autocomplete({source: '/pesquisar/usuarios.json'})
+  $("#situacoes-search").autocomplete({source: '/pesquisar/situacoes.json'})

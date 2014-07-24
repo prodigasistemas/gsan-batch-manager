@@ -1,0 +1,26 @@
+<h3><%= processo %></h3>
+<hr/>
+<%= hidden_field_tag :processo, processo, class: "form-control" %>
+<div class="form-group">
+  <%= label_tag "Rota", nil, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= text_field_tag :rota, '', id: "rotas-search", placeholder: "id da Rota", class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= label_tag "Grupo", nil, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= text_field_tag :grupo, '', placeholder: "número do grupo", class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <%= label_tag "Ano/Mês Referência", nil, class: "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= text_field_tag :ano_mes_referencia, '', :"data-date-mask" =>"dd/MM/yyyy hh:mm:ss", :"data-date-format" => "dd/MM/yyyy  hh:mm:ss", placeholder: "dd/mm/aaaa hh:mm:ss", class: "form-control" %>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <%= button_tag "Inserir", class: "btn btn-primary" %>
+  </div>
+</div>

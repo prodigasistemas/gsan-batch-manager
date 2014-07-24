@@ -1,20 +1,24 @@
 class PesquisarController < ApplicationController
   def processos
-    params[:term] = '' if params[:term].blank?
-    @processos = Processo.where("proc_dsprocesso ILIKE ?", "%#{params[:term]}%")
-    respond_to do |format|
-      format.json {
-        render json: @processos.map(&:nome)
-      }
-    end
+    pesquisa Processo, "proc_dsprocesso", :nome
   end
 
   def usuarios
+    pesquisa Usuario, "usur_nmusuario", :nome
+  end
+
+  def situacoes
+    pesquisa ProcessoSituacao, "prst_dsprocessosituacao", :descricao
+  end
+
+  private
+
+  def pesquisa(klass, campo, campo_retorno)
     params[:term] = '' if params[:term].blank?
-    @usuarios = Usuario.where("usur_nmusuario ILIKE ?", "%#{params[:term]}%")
+    @resultados = klass.send(:where, "#{campo} ILIKE ?", "%#{params[:term]}%")
     respond_to do |format|
       format.json {
-        render json: @usuarios.map(&:nome)
+        render json: @resultados.map(&campo_retorno)
       }
     end
   end
