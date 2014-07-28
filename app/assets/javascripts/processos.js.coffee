@@ -4,3 +4,6 @@
 $('#menutabs a').click (e) ->
   e.preventDefault()
   $(this).tab('show')
+
+$('#datetimepicker1').datetimepicker => language: 'pt-BR'
+$('#datetimepicker2').datetimepicker => language: 'pt-BR'

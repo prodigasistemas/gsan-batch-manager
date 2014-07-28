@@ -9,9 +9,9 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require jquery-ui/theme
- *= require jquery-ui/autocomplete
+ *= require jquery-ui
  *= require_tree .
  *= require bootstrap
+ *= require bootstrap-datetimepicker
  *= require dashboard
  */

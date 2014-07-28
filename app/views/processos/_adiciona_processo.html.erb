@@ -4,7 +4,7 @@
       <div class="form-group">
         <%= label_tag "Processo", nil, class: "col-sm-2 control-label" %>
         <div class="col-sm-8">
-          <%= text_field_tag :processo, params[:term], id: "novo-processo-search", placeholder: "tipo de processo", class: "form-control" %>
+          <%= text_field_tag :novo_processo, params[:term], id: "novo-processo-search", placeholder: "tipo de processo", class: "form-control" %>
         </div>
         <div class="col-sm-2">
           <%= button_tag "Configurar", class: "btn btn-primary" %>
@@ -13,12 +13,6 @@
     <% end %>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-10">
-    <% if params[:processo] %>
-      <%= form_tag gerar_dados_leitura_path, class: "form-horizontal", role: "form" do |f| %>
-        <%= render partial: params[:processo].downcase.gsub(' ', '_'), locals: { f: f, processo: params[:processo] } rescue render partial: 'default', locals: { processo: params[:processo] } %>
-      <% end %>
-    <% end %>
-  </div>
+<div id="novo-processo">
+  <%= render partial: 'novo_processo', locals: { novo_processo: params[:novo_processo] } %>
 </div>

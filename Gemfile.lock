@@ -31,6 +31,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
+    bootstrap3-datetimepicker-rails (3.0.0.2)
+      momentjs-rails (~> 2.5.0)
     builder (3.1.4)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -65,8 +67,14 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     minitest (4.7.5)
+    momentjs-rails (2.5.1)
+      railties (>= 3.1)
     multi_json (1.10.1)
     polyglot (0.3.5)
+    pry (0.9.12.6)
+      coderay (~> 1.0)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     pry (0.9.12.6-java)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -135,11 +143,13 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
+  bootstrap3-datetimepicker-rails (~> 3.0.0.2)
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
   kaminari
+  momentjs-rails (>= 2.5.0)
   pry
   rails (= 4.0.4)
   sass-rails (~> 4.0.2)

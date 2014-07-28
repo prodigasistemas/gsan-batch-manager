@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-md-10">
+    <% if novo_processo %>
+      <%= form_tag gerar_dados_leitura_path, class: "form-horizontal", role: "form" do |f| %>
+        <%= render partial: novo_processo.downcase.gsub(' ', '_'), locals: { f: f, processo: novo_processo } rescue render partial: 'default', locals: { processo: novo_processo } %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
