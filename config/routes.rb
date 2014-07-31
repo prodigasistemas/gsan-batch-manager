@@ -4,6 +4,7 @@ GsanBatchManager::Application.routes.draw do
 
   resource :processos, only: :none do
     get :filtrar
+    post :configura
   end
 
   resource :pesquisar, only: :none, controller: 'pesquisar' do

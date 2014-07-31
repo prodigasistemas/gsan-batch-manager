@@ -3,6 +3,7 @@
 <head>
   <title>GsanBatchManager</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -30,6 +31,9 @@
       <p class="text-muted">COSANPA - Companhia de Saneamento do Pará.</p>
     </div>
   </div> -->
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <script type="text/javascript">
+    $('#datetimepicker1').datetimepicker();
+    $('#datetimepicker2').datetimepicker();
+  </script>
 </body>
 </html>

@@ -5,6 +5,9 @@ class ProcessosController < ApplicationController
   def index
   end
 
+  def configura
+  end
+
   def filtrar
     @processos = @processos.joins(:processo).where("processo.proc_dsprocesso LIKE ?", "%#{params[:processo]}%") unless params[:processo].blank?
     @processos = @processos.joins(:usuario).where("usuario.usur_nmusuario LIKE ?", "%#{params[:usuario]}%") unless params[:usuario].blank?
