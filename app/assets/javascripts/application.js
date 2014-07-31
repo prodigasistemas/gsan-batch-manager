@@ -17,4 +17,5 @@
 //= require bootstrap
 //= require moment
 //= require bootstrap-datetimepicker
+//= require locales/bootstrap-datetimepicker.pt-BR.js
 //= require_tree .
