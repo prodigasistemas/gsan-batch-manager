@@ -8,6 +8,8 @@ class Processo < ActiveRecord::Base
 
   def inicia_processo params={}
     self.transaction do
+      return false unless processo_valido? params
+
       processo_iniciado = {
         grupo: params[:grupo],
         ultima_alteracao: Time.now,
@@ -18,10 +20,34 @@ class Processo < ActiveRecord::Base
       novo_processo = processos_iniciados.build processo_iniciado
       novo_processo.save!
 
-      novo_processo.parametros << ProcessoParametro.new(nome: "idRota", valor: params[:rota])
+      rotas = []
+      if params[:rota].blank?
+        rotas = Rota.todas_do_grupo(params[:grupo]).map(&:id)
+      else
+        rotas << params[:rota]
+      end
+
+      novo_processo.parametros << ProcessoParametro.new(nome: "faturamentoGrupo", valor: params[:grupo])
+      novo_processo.parametros << ProcessoParametro.new(nome: "idRota", valor: rotas.to_s)
       novo_processo.parametros << ProcessoParametro.new(nome: "anoMesFaturamento", valor: params[:ano_mes_referencia])
 
       novo_processo.save!
+
+      true
     end
+  end
+
+  private
+
+  def processo_valido?(params)
+    errors.add(:grupo, "Grupo de faturamento não existe.") unless FaturamentoGrupo.existe_grupo? params[:grupo]
+
+    if not params[:rota].blank?
+      errors.add(:rota, "Grupo de faturamento não possui a Rota indicada.") unless Rota.rota_pertence_ao_grupo?(params[:rota], params[:grupo])
+    end
+
+    return false if errors.any?
+
+    true
   end
 end
