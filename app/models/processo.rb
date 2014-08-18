@@ -27,7 +27,7 @@ class Processo < ActiveRecord::Base
         rotas << params[:rota]
       end
 
-      novo_processo.parametros << ProcessoParametro.new(nome: "faturamentoGrupo", valor: params[:grupo])
+      novo_processo.parametros << ProcessoParametro.new(nome: "idGrupoFaturamento", valor: params[:grupo])
       novo_processo.parametros << ProcessoParametro.new(nome: "idsRota", valor: rotas.to_s.gsub(/\[|\]/, ""))
       novo_processo.parametros << ProcessoParametro.new(nome: "anoMesFaturamento", valor: params[:ano_mes_referencia])
 
