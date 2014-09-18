@@ -19,6 +19,7 @@ class ProcessoIniciado < ActiveRecord::Base
   alias_attribute 'hora_comando', 'proi_tmcomando'
   alias_attribute 'ultima_alteracao', 'proi_tmultimaalteracao'
   alias_attribute 'grupo', 'proi_nngrupo'
+  alias_attribute 'prioridade', 'proi_prioridade'
 
   paginates_per 20
 
@@ -28,6 +29,14 @@ class ProcessoIniciado < ActiveRecord::Base
 
   def nome_usuario
     usuario.nome
+  end
+
+  def concluido?
+    situacao.descricao == "CONCLUIDO"
+  end
+
+  def em_processamento?
+    situacao.descricao == "EM PROCESSAMENTO"
   end
 
   class << self

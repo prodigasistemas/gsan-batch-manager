@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '2.0.0'
 
 gem 'rails', '4.1.1'
 gem 'pg'
@@ -16,7 +16,6 @@ gem 'jquery-ui-rails'
 gem 'momentjs-rails', '>= 2.5.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.2'
 gem 'unicorn'
-gem 'capistrano', '~> 3.2.0'
 
 group :development, :test do
   gem 'pry'

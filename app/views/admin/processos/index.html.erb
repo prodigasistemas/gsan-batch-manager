@@ -1,0 +1,61 @@
+<div class="table-responsive">
+  <div class="panel panel-default">
+    <div class="panel-heading">Processos</div>
+    <center>
+      <%= paginate @processos %>
+    </center>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th align="left">Prioridade</th>
+          <th align="left">Limite</th>
+          <th align="left">Periodicidade</th>
+          <th align="left">Script</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @processos.each do |processo| %>
+        <%= form_for :processo, url: admin_processo_path(processo), html: { method: :put, class: "form-horizontal", role: "form"} do |f| %>
+          <tr>
+            <td>
+              <%= processo.id %>
+            </td>
+            <td>
+              <%= processo.nome %>
+            </td>
+            <td>
+              <div class="form-group">
+                <%= f.text_field :prioridade, value: processo.prioridade, size: "3", class: "form-control" %>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <%= f.text_field :limite, value: processo.limite, size: "3", class: "form-control" %>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <%= select_tag :periodicidade, options_for_select(ProcessoTipo.all.collect { |t| [t.nome, t.id]}, processo.periodicidade.id), { class: 'form-control' } %>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <%= f.text_field :arquivo_batch, value: processo.arquivo_batch, class: "form-control" %>
+              </div>
+            </td>
+            <td>
+              <%= f.button "Atualizar", class: "btn btn-primary" %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+    <center>
+      <%= paginate @processos %>
+    </center>
+  </div>
+</div>
