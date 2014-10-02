@@ -9,6 +9,8 @@ class ProcessoParametro < ActiveRecord::Base
   alias_attribute :nome, "prpr_nmparametro"
   alias_attribute :valor, "prpr_valorparametro"
 
+  scope :percentual, -> { where(nome: "percentualProcessado") }
+
   private
 
   def generate_id

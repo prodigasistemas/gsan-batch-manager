@@ -7,6 +7,8 @@ class ProcessosController < ApplicationController
 
   def show
     @processo = ProcessoIniciado.find(params[:id])
+    parametroPercentual = @processo.parametros.percentual.first
+    @percentual = parametroPercentual.valor rescue 0
   end
 
   def new
