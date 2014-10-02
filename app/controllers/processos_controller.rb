@@ -9,6 +9,9 @@ class ProcessosController < ApplicationController
     @processo = ProcessoIniciado.find(params[:id])
   end
 
+  def new
+  end
+
   def configura
   end
 
@@ -26,7 +29,7 @@ class ProcessosController < ApplicationController
       render :index
     rescue => e
       logger.warn "Problemas nos parâmetros: #{params} - #{e}"
-      
+
       flash[:error] = "Problemas para executar a sua pesquisa, certifique-se que os parâmetros estão corretos"
       redirect_to root_path
     end

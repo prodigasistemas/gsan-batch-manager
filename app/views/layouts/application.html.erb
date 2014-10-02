@@ -15,10 +15,26 @@
           GSAN - Gerenciador de Processos
         <% end %>
       </div>
-      <%= link_to admin_processos_path, class: "navbar-btn btn btn-default navbar-right" do %>
-        <span class="glyphicon glyphicon-cog"></span>
-        <span class="glyphicon-class">Configurações</span>
-      <% end %>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= link_to root_path, class: "navbar-btn navbar-right" do %>
+            <span class="glyphicon glyphicon-list"></span>
+            <span class="glyphicon-class">Processos</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to new_processo_path, class: "navbar-btn navbar-right" do %>
+            <span class="glyphicon glyphicon-plus"></span>
+            <span class="glyphicon-class">Inserir Processo</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admin_processos_path, class: "navbar-btn navbar-right" do %>
+            <span class="glyphicon glyphicon-cog"></span>
+            <span class="glyphicon-class">Configurações</span>
+          <% end %>
+        </li>
+      </ul>
     </div>
   </div>
   <div class="container">

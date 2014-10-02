@@ -44,7 +44,7 @@
         <strong>Parâmetros:</strong>
         <ul>
           <% @processo.parametros.each do |parametro| %>
-            <li><span><%= "#{parametro.nome} - #{parametro.valor}" %></span></li>
+            <li><span><strong><%= "#{parametro.nome}" %></strong><%= " = #{parametro.valor}" %></span></li>
           <% end %>
         </ul>
       </li>
@@ -64,3 +64,17 @@
     </li>
   </ul>
 </div>
+<% if @processo.em_processamento? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">Log de Execução</div>
+    <ul class="list-group">
+      <li class="list-group-item">
+        Lorem ipsum dolor sit amet, cum erant populo erroribus te, tibique luptatum eam ex. Pri ex solet sanctus, sit ne mandamus posidonium ullamcorper. An wisi scriptorem his. Ex tantas eripuit delectus mei. Ius vocent fuisset ad, et ius debet adversarium.<br/>
+        Graeci referrentur theophrastus ad mea. Vero salutandi ius et, usu affert animal ancillae cu. Et augue labores urbanitas vix, an qui elit aliquip tamquam. Vim nominati conceptam eu, duo et wisi dicant commune. Nemore semper epicuri nec ad, vis natum ullamcorper no. Eu usu ponderum invidunt necessitatibus.
+        Alia postea sea ad, at nam eius laudem. Per et eros nostro, meliore accusamus nec ne. Cibo mucius molestiae et duo, dictas copiosae est at. Id mea sale verear incorrupte, has verterem gubergren ad. Facete alterum eu pri. Eu cum falli forensibus, albucius interpretaris te usu.
+        Ea ius quis veritus, ex usu mundi munere scripserit, tantas vivendo forensibus vis te. Fierent ocurreret ad eam, intellegam constituam mei ei. Dicta sensibus usu ei, te abhorreant moderatius adversarium quo. Ad eros omittam evertitur quo, utroque lucilius ei his, eos novum dictas ancillae et. Ex eam quando saperet consequat. Ea eam voluptua phaedrum, sumo adhuc has et, hinc dolorum mea ne.
+        Eu brute praesent est, mel ut altera efficiantur, id pri delenit epicuri oportere. Sea saepe luptatum ei, ei eam ubique fabellas, nec ut vocibus moderatius. Ea has nonumy aliquando complectitur, te quodsi theophrastus per, vix ignota ornatus inciderint te. Ad has euismod theophrastus. Eum eros recteque ne, at vide adolescens mea, quo iuvaret vulputate an. Ignota dignissim et his, per at persius efficiantur.
+      </li>
+    </ul>
+  </div>
+<% end %>

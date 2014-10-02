@@ -1,4 +1,14 @@
 <div class="row">
+  <div class="col-md-12">
+    <h3>Inserir Processo</h3>
+    <div class="alert alert-info fade in" role="alert">
+      Para configurar um novo processo, você precisa identificar qual o processo que você deseja configurar.
+      <button class="close" data-dismiss="alert">×</button>
+    </div>
+    <br/>
+  </div>
+</div>
+<div class="row">
   <div class="col-md-10">
     <%= form_tag configura_processos_path, class: "form-horizontal", role: "form", remote: true do |f| %>
       <div class="form-group">
