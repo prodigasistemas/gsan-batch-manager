@@ -39,6 +39,10 @@ class ProcessoIniciado < ActiveRecord::Base
     situacao.descricao == "EM PROCESSAMENTO"
   end
 
+  def parado?
+    ["CONCLUIDO", "CONCLUIDO COM ERRO", "EXECUCAO CANCELADA"].include? situacao.descricao
+  end
+
   class << self
     def em_espera
       joins(:situacao).where("processo_situacao.prst_dsprocessosituacao = 'EM ESPERA'")

@@ -15,7 +15,6 @@
           <th>Usuário</th>
           <th></th>
           <th></th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +27,7 @@
           <td><%= processo.hora_termino.strftime('%d/%m/%Y %H:%M:%S') unless processo.hora_termino.blank? %></td>
           <td><%= processo.usuario.nome %></td>
           <td><%= link_to "detalhes", processo_path(processo), class: "btn btn-primary" %></td>
-          <td><%= link_to "X", "#", class: "btn btn-danger" %></td>
+          <td><%= link_to "X", "#", title: "Cancelar Processo", class: "btn btn-danger" unless processo.parado? %></td>
         </tr>
       <% end %>
       </tbody>

@@ -1,27 +1,27 @@
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-6">
     <%= form_tag filtrar_processos_path, method: :get, class: "form-horizontal", role: "form" do |f| %>
       <div class="form-group">
         <%= label_tag "Processo", nil, class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <%= text_field_tag :processo, params[:term], id: "processos-search", placeholder: "tipo de processo", class: "form-control" %>
         </div>
       </div>
       <div class="form-group">
         <%= label_tag "Usuário", nil, class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <%= text_field_tag :usuario, params[:term], id: "usuarios-search", placeholder: "nome do usuário", class: "form-control" %>
         </div>
       </div>
       <div class="form-group">
         <%= label_tag "Grupo", nil, class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <%= text_field_tag :grupo, '', placeholder: "número do grupo", class: "form-control" %>
         </div>
       </div>
       <div class="form-group">
         <%= label_tag "Início", nil, class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <div class='input-group date datetimepicker'>
             <%= text_field_tag :data_processo_inicio, '', :'data-format' => "dd/MM/yyyy hh:mm:ss", placeholder: "dd/mm/aaaa hh:mm:ss", class: "form-control" %>
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -31,7 +31,7 @@
       </div>
       <div class="form-group">
         <%= label_tag "Término", nil, class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <div class='input-group date datetimepicker'>
             <%= text_field_tag :data_processo_final, '', :'data-format' => "dd/MM/yyyy hh:mm:ss", placeholder: "dd/mm/aaaa hh:mm:ss", class: "form-control" %>
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -41,7 +41,7 @@
       </div>
       <div class="form-group">
         <%= label_tag "Situação", nil, class: "col-sm-2 control-label" %>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <%= text_field_tag :situacao, params[:term], id: "situacoes-search", placeholder: "situação do processo", class: "form-control" %>
         </div>
       </div>
@@ -52,7 +52,7 @@
       </div>
     <% end %>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">Filtros</div>
       <center>

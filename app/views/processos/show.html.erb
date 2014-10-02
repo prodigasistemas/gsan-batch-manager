@@ -59,7 +59,7 @@
     </li>
     <li class="list-group-item">
       <span><%= link_to "Reiniciar", "#", class: "btn btn-primary" if @processo.concluido? %></span>
-      <span><%= link_to "Cancelar Processo", "#", class: "btn btn-danger" if @processo.em_processamento? %></span>
+      <span><%= link_to "Cancelar Processo", "#", class: "btn btn-danger" unless @processo.parado? %></span>
       <span><%= link_to "Voltar", root_path, class: "btn btn-default" %></span>
     </li>
   </ul>
