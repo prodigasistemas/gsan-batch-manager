@@ -37,6 +37,21 @@ class ProcessosController < ApplicationController
     end
   end
 
+  def destroy
+    @processo = ProcessoIniciado.find(params[:id])
+
+    begin
+      Processo.finalizacao.finaliza_processo @processo
+
+      flash[:notice] = "O processo ##{@processo.id} entrou em processo de cancelamento da execução."
+      redirect_to root_path
+
+    rescue
+      flash[:error] = "Ocorreu um erro ao tentar cancelar o processo (##{@processo.id})."
+      render :show
+    end
+  end
+
   private
 
   def get_processos

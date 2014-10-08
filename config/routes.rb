@@ -5,7 +5,7 @@ GsanBatchManager::Application.routes.draw do
     post :configura
   end
 
-  resources :processos, only: [:index, :show, :new, :create]
+  resources :processos, only: [:index, :show, :new, :create, :destroy]
 
   namespace :admin do
     resources :processos, only: [:index, :update]

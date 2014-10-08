@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   create_table "orig_arrecadado", id: false, force: true do |t|
-    t.integer "arr_id",                                                           null: false
+    t.integer "arr_id",                                             default: "nextval('seq_arr'::regclass)", null: false
     t.integer "conta"
     t.integer "imovel"
     t.decimal "mes_id",                    precision: 6,  scale: 0
@@ -260,28 +260,28 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "teste1"
   end
 
-# Could not dump table "todas_as_foreign_keys_20081028" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+# Could not dump table "todas_as_foreign_keys_20081028" because of following StandardError
+#   Unknown type 'information_schema.sql_identifier' for column 'table_schema'
 
-# Could not dump table "todas_as_foreign_keys_basica" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+# Could not dump table "todas_as_foreign_keys_basica" because of following StandardError
+#   Unknown type 'name' for column 'schema_name'
 
-# Could not dump table "todas_as_primary_keys_20081028" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+# Could not dump table "todas_as_primary_keys_20081028" because of following StandardError
+#   Unknown type 'information_schema.sql_identifier' for column 'table_schema'
 
-# Could not dump table "todas_as_tabelas_20091229" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+# Could not dump table "todas_as_tabelas_20091229" because of following StandardError
+#   Unknown type 'information_schema.sql_identifier' for column 'table_schema'
 
-# Could not dump table "todos_os_indices_20091218" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+# Could not dump table "todos_os_indices_20091218" because of following StandardError
+#   Unknown type 'name' for column 'schemaname'
 
-# Could not dump table "todos_os_indices_20140602" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+# Could not dump table "todos_os_indices_20140602" because of following StandardError
+#   Unknown type 'name' for column 'schemaname'
 
-# Could not dump table "todos_os_indices_basica" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+# Could not dump table "todos_os_indices_basica" because of following StandardError
+#   Unknown type 'name' for column 'schemaname'
 
-# Could not dump table "todos_os_indices_cosanpa" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+# Could not dump table "todos_os_indices_cosanpa" because of following StandardError
+#   Unknown type 'name' for column 'schemaname'
 
 end
