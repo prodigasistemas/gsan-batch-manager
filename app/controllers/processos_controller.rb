@@ -56,7 +56,7 @@ class ProcessosController < ApplicationController
 
   def get_processos
     @filtros = params
-    @filtros[:situacao] = "EM PROCESSAMENTO" if @filtros[:situacao].blank?
+    @filtros[:situacao] ||= "EM PROCESSAMENTO"
 
     metodo_situacao = @filtros[:situacao].downcase.strip.gsub(" ", "_").gsub("[\.]", "")
     @processos = ProcessoIniciado.send(metodo_situacao).page params[:page]

@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div id="main-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
         <%= link_to root_path, class: "navbar-brand" do %>
@@ -19,7 +19,7 @@
         <li>
           <%= link_to root_path, class: "navbar-btn navbar-right" do %>
             <span class="glyphicon glyphicon-list"></span>
-            <span class="glyphicon-class">Processos</span>
+            <span class="glyphicon-class">Consulta de Processos</span>
           <% end %>
         </li>
         <li>
@@ -38,7 +38,6 @@
     </div>
   </div>
   <div class="container">
-    <hr/>
     <%= render partial: "shared/flash_messages", flash: flash %>
     <%= yield %>
   </div>

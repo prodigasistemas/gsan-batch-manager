@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-md-12">
-    <h3>Processos</h3>
+    <h3>Consulta de Processos</h3>
+    <hr/>
     <br/>
   </div>
 </div>
@@ -48,7 +49,7 @@
       <div class="form-group">
         <%= label_tag "Situação", nil, class: "col-sm-2 control-label" %>
         <div class="col-sm-8">
-          <%= text_field_tag :situacao, params[:term], id: "situacoes-search", placeholder: "situação do processo", class: "form-control" %>
+          <%= select_tag :situacao, options_from_collection_for_select(ProcessoSituacao.all, "descricao", "descricao"), class: "form-control" %>
         </div>
       </div>
       <div class="form-group">
@@ -60,7 +61,7 @@
   </div>
   <div class="col-md-6">
     <div class="panel panel-default">
-      <div class="panel-heading">Filtros</div>
+      <div class="panel-heading"><%= @filtros[:situacao] %></div>
       <center>
         <h3>Total</h3>
         <h1>
@@ -97,12 +98,6 @@
           <li class="list-group-item">
             <strong>Final</strong>
             <span><%= @filtros[:data_processo_final] %></span>
-          </li>
-        <% end %>
-        <% if not @filtros[:situacao].blank? %>
-          <li class="list-group-item">
-            <strong>Situação</strong>
-            <span><%= @filtros[:situacao] %></span>
           </li>
         <% end %>
       </ul>

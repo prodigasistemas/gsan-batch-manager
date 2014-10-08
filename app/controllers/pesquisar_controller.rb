@@ -7,10 +7,6 @@ class PesquisarController < ApplicationController
     pesquisa Usuario, "usur_nmusuario", :nome
   end
 
-  def situacoes
-    pesquisa ProcessoSituacao, "prst_dsprocessosituacao", :descricao
-  end
-
   private
 
   def pesquisa(klass, campo, campo_retorno)
