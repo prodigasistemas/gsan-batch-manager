@@ -1,87 +1,87 @@
-<div class="row">
-  <div class="col-md-12">
-    <h3>Informações do Processo</h3>
-    <hr/>
-    <br/>
-  </div>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">Informações Gerais</div>
-  <center>
-    <h3><%= @processo.nome %></h3>
-  </center>
-
-  <ul class="list-group">
-    <li class="list-group-item">
-      <strong>Id:</strong>
-      <span><%= @processo.id %></span>
-    </li>
-    <% if not @processo.usuario.nome.blank? %>
-      <li class="list-group-item">
-        <strong>Usuário:</strong>
-        <span><%= @processo.usuario.nome %></span>
-      </li>
-    <% end %>
-    <% if not @processo.grupo.blank? %>
-      <li class="list-group-item">
-        <strong>Grupo:</strong>
-        <span><%= @processo.grupo unless @processo.grupo.blank? %></span>
-      </li>
-    <% end %>
-    <% if not @processo.hora_inicio.blank? %>
-      <li class="list-group-item">
-        <strong>Início:</strong>
-        <span><%= @processo.hora_inicio.strftime('%d/%m/%Y %H:%M:%S') %></span>
-      </li>
-    <% end %>
-    <% if not @processo.hora_termino.blank? %>
-      <li class="list-group-item">
-        <strong>Final:</strong>
-        <span><%= @processo.hora_termino.strftime('%d/%m/%Y %H:%M:%S') %></span>
-      </li>
-    <% end %>
-    <% if not @processo.situacao.blank? %>
-      <li class="list-group-item">
-        <strong>Situação:</strong>
-        <span><%= @processo.situacao.descricao %></span>
-      </li>
-    <% end %>
-    <% if not @processo.parametros.blank? %>
-      <li class="list-group-item">
-        <strong>Parâmetros:</strong>
-        <ul>
-          <% @processo.parametros.each do |parametro| %>
-            <li><span><strong><%= "#{parametro.nome}" %></strong><%= " = #{parametro.valor}" %></span></li>
-          <% end %>
-        </ul>
-      </li>
-    <% end %>
-    <li class="list-group-item">
-      <strong>Progresso:</strong>
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="<%= @percentual %>" aria-valuemin="0" aria-valuemax="100" style='<%= "width: #{@percentual}%;" %>'>
-          <%= @percentual %>%
-        </div>
+<div id="refresh">
+  <div id="infos-processo">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Informações do Processo</h3>
+        <hr/>
+        <br/>
       </div>
-    </li>
-    <li class="list-group-item">
-      <span><%= link_to "Reiniciar", "#", class: "btn btn-primary" if @processo.concluido? %></span>
-      <span><%= link_to "Cancelar Processo", processo_path(@processo.id), method: :delete, class: "btn btn-danger", data: {confirm: "Você tem certeza que deseja parar o processo?"} unless @processo.parado? %></span>
-      <span><%= link_to "Voltar", root_path, class: "btn btn-default" %></span>
-    </li>
-  </ul>
-</div>
-<% if @processo.em_processamento? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">Log de Execução</div>
-    <ul class="list-group">
-      <li class="list-group-item">
-        Lorem ipsum dolor sit amet, cum erant populo erroribus te, tibique luptatum eam ex. Pri ex solet sanctus, sit ne mandamus posidonium ullamcorper. An wisi scriptorem his. Ex tantas eripuit delectus mei. Ius vocent fuisset ad, et ius debet adversarium.<br/>
-        Graeci referrentur theophrastus ad mea. Vero salutandi ius et, usu affert animal ancillae cu. Et augue labores urbanitas vix, an qui elit aliquip tamquam. Vim nominati conceptam eu, duo et wisi dicant commune. Nemore semper epicuri nec ad, vis natum ullamcorper no. Eu usu ponderum invidunt necessitatibus.
-        Alia postea sea ad, at nam eius laudem. Per et eros nostro, meliore accusamus nec ne. Cibo mucius molestiae et duo, dictas copiosae est at. Id mea sale verear incorrupte, has verterem gubergren ad. Facete alterum eu pri. Eu cum falli forensibus, albucius interpretaris te usu.
-        Ea ius quis veritus, ex usu mundi munere scripserit, tantas vivendo forensibus vis te. Fierent ocurreret ad eam, intellegam constituam mei ei. Dicta sensibus usu ei, te abhorreant moderatius adversarium quo. Ad eros omittam evertitur quo, utroque lucilius ei his, eos novum dictas ancillae et. Ex eam quando saperet consequat. Ea eam voluptua phaedrum, sumo adhuc has et, hinc dolorum mea ne.
-        Eu brute praesent est, mel ut altera efficiantur, id pri delenit epicuri oportere. Sea saepe luptatum ei, ei eam ubique fabellas, nec ut vocibus moderatius. Ea has nonumy aliquando complectitur, te quodsi theophrastus per, vix ignota ornatus inciderint te. Ad has euismod theophrastus. Eum eros recteque ne, at vide adolescens mea, quo iuvaret vulputate an. Ignota dignissim et his, per at persius efficiantur.
-      </li>
-    </ul>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Informações Gerais</div>
+      <center>
+        <h3><%= @processo.nome %></h3>
+      </center>
+
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong>Id:</strong>
+          <span><%= @processo.id %></span>
+        </li>
+        <% if not @processo.usuario.nome.blank? %>
+          <li class="list-group-item">
+            <strong>Usuário:</strong>
+            <span><%= @processo.usuario.nome %></span>
+          </li>
+        <% end %>
+        <% if not @processo.grupo.blank? %>
+          <li class="list-group-item">
+            <strong>Grupo:</strong>
+            <span><%= @processo.grupo unless @processo.grupo.blank? %></span>
+          </li>
+        <% end %>
+        <% if not @processo.hora_inicio.blank? %>
+          <li class="list-group-item">
+            <strong>Início:</strong>
+            <span><%= @processo.hora_inicio.strftime('%d/%m/%Y %H:%M:%S') %></span>
+          </li>
+        <% end %>
+        <% if not @processo.hora_termino.blank? %>
+          <li class="list-group-item">
+            <strong>Final:</strong>
+            <span><%= @processo.hora_termino.strftime('%d/%m/%Y %H:%M:%S') %></span>
+          </li>
+        <% end %>
+        <% if not @processo.situacao.blank? %>
+          <li class="list-group-item">
+            <strong>Situação:</strong>
+            <span><%= @processo.situacao.descricao %></span>
+          </li>
+        <% end %>
+        <% if not @processo.parametros.blank? %>
+          <li class="list-group-item">
+            <strong>Parâmetros:</strong>
+            <ul>
+              <% @processo.parametros.each do |parametro| %>
+                <li><span><strong><%= "#{parametro.nome}" %></strong><%= " = #{parametro.valor}" %></span></li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+        <li class="list-group-item">
+          <strong>Progresso:</strong>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="<%= @percentual %>" aria-valuemin="0" aria-valuemax="100" style='<%= "width: #{@percentual}%;" %>'>
+              <%= @percentual %>%
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <span><%= link_to "Reiniciar", "#", class: "btn btn-primary" if @processo.concluido? %></span>
+          <span><%= link_to "Cancelar Processo", processo_path(@processo.id), method: :delete, class: "btn btn-danger", data: {confirm: "Você tem certeza que deseja parar o processo?"} unless @processo.parado? %></span>
+          <span><%= link_to "Voltar", root_path, class: "btn btn-default" %></span>
+        </li>
+      </ul>
+    </div>
+    <% if @processo.em_processamento? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">Log de Execução</div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <%= simple_format log_processo(@processo) %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

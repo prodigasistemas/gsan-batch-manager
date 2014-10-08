@@ -50,6 +50,11 @@
     $('.datetimepicker').datetimepicker({
       language: 'pt-BR'
     });
+
+    setInterval("setTimeout();", 5000);
+    function setTimeout(){
+      $('#refresh').load(location.href + ' #infos-processo');
+    }
   </script>
 </body>
 </html>
