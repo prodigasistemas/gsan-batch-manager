@@ -18,22 +18,4 @@ class Processo < ActiveRecord::Base
     klass = Kernel.const_get params[:nome_batch].split('_').map {|w| w.capitalize }.join('')
     klass.new(self, params).inicia_processo
   end
-
-  def finaliza_processo processo_iniciado
-    self.transaction do
-      processo_iniciado_params = {
-        ultima_alteracao: Time.now,
-        usuario: Usuario.first, # Recuperar o Usuário
-        situacao: ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:em_espera]),
-        prioridade: self.prioridade
-      }
-
-      novo_processo_iniciado = self.processos_iniciados.build processo_iniciado_params
-      novo_processo_iniciado.save!
-
-      novo_processo_iniciado.parametros << ProcessoParametro.new(nome: "idProcessoIniciado", valor: processo_iniciado.id)
-      novo_processo_iniciado.parametros << ProcessoParametro.new(nome: "batchCancelar", valor: processo_iniciado.processo.arquivo_batch)
-      novo_processo_iniciado.save!
-    end
-  end
 end
