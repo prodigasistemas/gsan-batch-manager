@@ -32,6 +32,7 @@ class Processo < ActiveRecord::Base
       novo_processo_iniciado.save!
 
       novo_processo_iniciado.parametros << ProcessoParametro.new(nome: "idProcessoIniciado", valor: processo_iniciado.id)
+      novo_processo_iniciado.parametros << ProcessoParametro.new(nome: "batchCancelar", valor: processo_iniciado.processo.arquivo_batch)
       novo_processo_iniciado.save!
     end
   end
