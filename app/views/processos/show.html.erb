@@ -53,7 +53,9 @@
             <strong>Parâmetros:</strong>
             <ul>
               <% @processo.parametros.each do |parametro| %>
-                <li><span><strong><%= "#{parametro.nome}" %></strong><%= " = #{parametro.valor}" %></span></li>
+                <% if not parametro.nome == "percentualProcessado" %>
+                  <li><span><strong><%= "#{parametro.nome}" %></strong><%= " = #{parametro.valor}" %></span></li>
+                <% end %>
               <% end %>
             </ul>
           </li>
