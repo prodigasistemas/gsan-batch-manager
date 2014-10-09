@@ -1,7 +1,8 @@
 class BatchController < ApplicationController
   def inserir_batch
     processo = Processo.where("proc_dsprocesso ILIKE ?", params[:processo]).first
-    if processo.inicia_processo params
+    processo_iniciado = processo.inicia_processo params
+    if processo_iniciado
       flash[:notice] = "O processo foi inserido com sucesso!"
     else
       flash[:error] = "<p>Erro ao inserir o processo #{params[:processo]}:"
@@ -12,6 +13,6 @@ class BatchController < ApplicationController
       flash[:error].concat("</ul></p>")
     end
 
-    redirect_to filtrar_processos_path(situacao: "EM ESPERA")
+    redirect_to processo_path(processo_iniciado.id)
   end
 end

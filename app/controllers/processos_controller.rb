@@ -55,7 +55,7 @@ class ProcessosController < ApplicationController
 
     if @processo.save
       flash[:notice] = "O processo ##{@processo.id} entrou em processo de cancelamento da execução."
-      redirect_to root_path
+      redirect_to processo_path(@processo.id)
     else
       flash[:error] = "Ocorreu um erro ao tentar cancelar o processo (##{@processo.id})."
       render :show

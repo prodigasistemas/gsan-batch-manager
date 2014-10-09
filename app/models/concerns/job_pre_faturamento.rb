@@ -30,7 +30,7 @@ class JobPreFaturamento
 
       novo_processo_iniciado.save!
 
-      true
+      novo_processo_iniciado
     end
   end
 
