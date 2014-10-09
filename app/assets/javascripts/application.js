@@ -13,6 +13,10 @@
 //= require jquery
 //= require turbolinks
 //= require jquery_ujs
+//= require jquery-ui/core
+//= require jquery-ui/widget
+//= require jquery-ui/position
+//= require jquery-ui/menu
 //= require jquery-ui/autocomplete
 //= require bootstrap
 //= require moment

@@ -56,9 +56,11 @@
       $('#refresh').load(location.href + ' #infos-processo');
     }
 
-    $("#processos-search").autocomplete({source: '/pesquisar/processos.json'})
-    $("#novo-processo-search").autocomplete({source: '/pesquisar/processos.json'})
-    $("#usuarios-search").autocomplete({source: '/pesquisar/usuarios.json'})
+    $(document).ready(function(){
+      $("#processos-search").autocomplete({source: '/pesquisar/processos.json'})
+      $("#novo-processo-search").autocomplete({source: '/pesquisar/processos.json'})
+      $("#usuarios-search").autocomplete({source: '/pesquisar/usuarios.json'})
+    });
   </script>
 </body>
 </html>
