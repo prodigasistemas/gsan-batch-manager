@@ -75,6 +75,10 @@ class ProcessoIniciado < ActiveRecord::Base
     def inicio_a_comandar
       joins(:situacao).where("processo_situacao.prst_dsprocessosituacao = 'INICIO_A_COMANDAR'")
     end
+
+    def reiniciado
+      joins(:situacao).where("processo_situacao.prst_dsprocessosituacao = 'REINICIADO'")
+    end
   end
 
   private
