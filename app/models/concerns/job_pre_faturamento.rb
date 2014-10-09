@@ -58,6 +58,8 @@ class JobPreFaturamento
     }
 
     processo_iniciado[:situacao] = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:agendado]) if @agendamento
+
+    processo_iniciado
   end
 
   def processo_valido?
