@@ -31,11 +31,6 @@ class ProcessoIniciado < ActiveRecord::Base
     usuario.nome
   end
 
-  def cancelar_processo
-    situacao = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:cancelado])
-    save
-  end
-
   def concluido?
     situacao.descricao == "CONCLUIDO"
   end

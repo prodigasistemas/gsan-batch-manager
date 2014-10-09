@@ -12,6 +12,6 @@ class BatchController < ApplicationController
       flash[:error].concat("</ul></p>")
     end
 
-    redirect_to root_path
+    redirect_to filtrar_processos_path(situacao: "EM ESPERA")
   end
 end
