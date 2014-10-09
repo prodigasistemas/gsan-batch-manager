@@ -1,5 +1,5 @@
-class FaturamentoController < ApplicationController
-  def novo_batch
+class BatchController < ApplicationController
+  def inserir_batch
     processo = Processo.where("proc_dsprocesso ILIKE ?", params[:processo]).first
     if processo.inicia_processo params
       flash[:notice] = "O processo foi inserido com sucesso!"

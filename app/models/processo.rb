@@ -15,7 +15,7 @@ class Processo < ActiveRecord::Base
   scope :finalizacao, -> { where(arquivo_batch: 'job_parar_batch').first }
 
   def inicia_processo params={}
-    klass = Kernel.const_get params[:processo].split(' ').map {|w| w.capitalize }.join('')
+    klass = Kernel.const_get params[:nome_batch].split('_').map {|w| w.capitalize }.join('')
     klass.new(self, params).inicia_processo
   end
 

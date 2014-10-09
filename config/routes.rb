@@ -17,7 +17,7 @@ GsanBatchManager::Application.routes.draw do
     get :situacoes
   end
 
-  post :novo_batch, controller: :faturamento
+  post :inserir_batch, controller: :batch
 
   root to: "processos#index"
 end

@@ -1,4 +1,4 @@
-class NovoBatch
+class JobPreFaturamento
 
   PARAMETROS = {
     "idGrupoFaturamento" => :grupo,

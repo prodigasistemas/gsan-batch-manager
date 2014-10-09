@@ -1,8 +1,8 @@
 <div class="row">
   <div class="col-md-10">
     <% if novo_processo %>
-      <%= form_tag novo_batch_path, class: "form-horizontal", role: "form" do |f| %>
-        <%= render partial: "templates/#{novo_processo.downcase.gsub(' ', '_')}", locals: { f: f, processo: novo_processo } rescue render partial: 'templates/default', locals: { processo: novo_processo } %>
+      <%= form_tag inserir_batch_path, class: "form-horizontal", role: "form" do |f| %>
+        <%= render partial: template_processo(novo_processo), locals: { f: f, processo: novo_processo, klass: get_arquivo_batch(novo_processo) } rescue render partial: 'templates/default', locals: { processo: novo_processo } %>
       <% end %>
     <% end %>
   </div>

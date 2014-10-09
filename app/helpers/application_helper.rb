@@ -24,4 +24,12 @@ module ApplicationHelper
       "Nenhum log encontrado!"
     end
   end
+
+  def template_processo(novo_processo)
+    "templates/#{get_arquivo_batch(novo_processo).downcase.gsub(' ', '_')}"
+  end
+
+  def get_arquivo_batch(nome_processo)
+    Processo.where(nome: nome_processo).first.arquivo_batch
+  end
 end
