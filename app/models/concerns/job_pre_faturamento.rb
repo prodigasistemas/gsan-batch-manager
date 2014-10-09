@@ -57,7 +57,7 @@ class JobPreFaturamento
       prioridade: @processo.prioridade
     }
 
-    processo_iniciado[:situacao] = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:agendado]) if @agendamento
+    processo_iniciado[:situacao] = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:agendado]) if not @agendamento.blank?
 
     processo_iniciado
   end
