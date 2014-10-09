@@ -52,10 +52,12 @@ class JobPreFaturamento
       grupo: @grupo,
       ultima_alteracao: Time.now,
       usuario: Usuario.first, # Recuperar o Usuário
-      situacao: ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:em_espera]),
+      situacao: ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:em_espera])
       agendamento: @agendamento,
       prioridade: @processo.prioridade
     }
+
+    processo_iniciado[:situacao] = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:agendado]) if @agendamento
   end
 
   def processo_valido?
