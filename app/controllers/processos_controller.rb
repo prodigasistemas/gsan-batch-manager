@@ -14,6 +14,18 @@ class ProcessosController < ApplicationController
   def new
   end
 
+  def update
+    @processo = ProcessoIniciado.find(params[:id])
+    @processo.situacao = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:reiniciado])
+    if @processo.save
+      flash[:notice] = "Processo reiniciado com sucesso!"
+      redirect_to processo_path(@processo)
+    else
+      flash[:error] = "Erro ao reiniciar processo!"
+      render :show
+    end
+  end
+
   def configura
   end
 

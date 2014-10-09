@@ -24,7 +24,7 @@ class Processo < ActiveRecord::Base
       processo_iniciado_params = {
         ultima_alteracao: Time.now,
         usuario: Usuario.first, # Recuperar o Usuário
-        situacao: ProcessoSituacao.find(3), # EM ESPERA
+        situacao: ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:em_espera]),
         prioridade: self.prioridade
       }
 
