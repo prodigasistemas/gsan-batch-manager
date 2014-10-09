@@ -67,7 +67,7 @@
           </div>
         </li>
         <li class="list-group-item">
-          <span><%= link_to "Reiniciar", processo_path(@processo.id), method: :put, class: "btn btn-primary" if @processo.concluido? %></span>
+          <span><%= link_to "Reiniciar", processo_path(@processo.id), method: :put, class: "btn btn-primary" if @processo.parado? %></span>
           <span><%= link_to "Cancelar Processo", processo_path(@processo.id), method: :delete, class: "btn btn-danger", data: {confirm: "Você tem certeza que deseja parar o processo?"} unless @processo.parado? %></span>
           <span><%= link_to "Voltar", root_path, class: "btn btn-default" %></span>
         </li>
