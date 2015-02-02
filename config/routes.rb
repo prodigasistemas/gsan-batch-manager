@@ -3,6 +3,7 @@ GsanBatchManager::Application.routes.draw do
   resource :processos, only: :none do
     get :filtrar
     post :configura
+    post :get_cronograma_info
   end
 
   resources :processos
