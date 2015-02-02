@@ -11,7 +11,8 @@
 <div class="form-group">
   <%= label_tag "Ano/Mês", nil, class: "col-sm-2 control-label" %>
   <div class="col-sm-6">
-    <%= text_field_tag :ano_mes_referencia, '', class: "form-control" %>
+    <%= text_field_tag :ano_mes_referencia_text, '', class: "form-control", disabled: true %>
+    <%= hidden_field_tag :ano_mes_referencia, '', class: "form-control" %>
   </div>
 </div>
 
@@ -49,6 +50,7 @@ $.ajax({
     success: function(data) {
           if (data.ano_mes_referencia) {
             $("#ano_mes_referencia").val(data.ano_mes_referencia);
+            $("#ano_mes_referencia_text").val(data.ano_mes_referencia);
           }
 
           if (data.data_vencimento) {
