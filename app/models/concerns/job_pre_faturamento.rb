@@ -3,10 +3,12 @@ class JobPreFaturamento
   PARAMETROS = {
     "idGrupoFaturamento" => :grupo,
     "idsRota" => :rotas,
-    "anoMesFaturamento" => :ano_mes_referencia
+    "anoMesFaturamento" => :ano_mes_referencia,
+    "vencimentoContas" => :vencimento_contas,
+    "agendamento" => :agendamento
   }
 
-  attr_accessor :grupo, :rota, :ano_mes_referencia, :agendamento, :periodicidade, :processo
+  attr_accessor :grupo, :rota, :ano_mes_referencia, :agendamento, :periodicidade, :processo, :vencimento_contas
 
   def initialize processo, params
     @processo = processo
@@ -15,6 +17,7 @@ class JobPreFaturamento
     @ano_mes_referencia = params[:ano_mes_referencia]
     @agendamento = params[:agendamento]
     @periodicidade = params[:periodicidade]
+    @vencimento_contas = params[:vencimento_contas]
   end
 
   def inicia_processo

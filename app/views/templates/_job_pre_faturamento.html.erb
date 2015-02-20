@@ -5,9 +5,30 @@
 <div class="form-group">
   <%= label_tag "Grupo", nil, class: "col-sm-2 control-label" %>
   <div class="col-sm-6">
-    <%= text_field_tag :grupo, '', placeholder: "número do grupo", class: "form-control" %>
+    <%= select_tag :grupo, options_from_collection_for_select(FaturamentoGrupo.all.sort_by {|fg| fg.id }, "id", "descricao"), class: "form-control", id: "grupo_tag" %>
   </div>
 </div>
+<div class="form-group">
+  <%= label_tag "Ano/Mês", nil, class: "col-sm-2 control-label" %>
+  <div class="col-sm-6">
+    <%= text_field_tag :ano_mes_referencia_text, '', class: "form-control", disabled: true %>
+    <%= hidden_field_tag :ano_mes_referencia, '', class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= label_tag "Vencimento das contas", nil, class: "col-sm-2 control-label" %>
+  <div class="col-sm-6">
+    <div class='input-group date' id="calendario_vencimento_contas">
+      <%= text_field_tag :vencimento_contas, '', :'data-format' => "dd/MM/yyyy", placeholder: "dd/mm/aaaa", class: "form-control" %>
+      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+</div>
+
+
+<%= render "shared/agendamento" %>
 <div class="form-group">
   <%= label_tag "Rota", nil, class: "col-sm-2 control-label" %>
   <div class="col-sm-6">
@@ -15,14 +36,37 @@
   </div>
 </div>
 <div class="form-group">
-  <%= label_tag "Ano/Mês", nil, class: "col-sm-2 control-label" %>
-  <div class="col-sm-6">
-    <%= text_field_tag :ano_mes_referencia, '', placeholder: "Ex: 201401", class: "form-control" %>
-  </div>
-</div>
-<%= render "shared/agendamento" %>
-<div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">
     <%= button_tag "Inserir", class: "btn btn-primary" %>
   </div>
 </div>
+<script>
+$( "#grupo_tag" ).change(function () {
+$.ajax({
+    url: "/processos/get_cronograma_info",
+    type: "POST",
+    data: {grupo_faturamento: $('#grupo_tag option:selected').val()},
+    dataType: 'json',
+    success: function(data) {
+          if (data.ano_mes_referencia) {
+            $("#ano_mes_referencia").val(data.ano_mes_referencia);
+            $("#ano_mes_referencia_text").val(data.ano_mes_referencia);
+          }
+
+          if (data.data_vencimento) {
+            $("#vencimento_contas").val(data.data_vencimento);
+          } else {
+            $("#vencimento_contas").val('');
+          }
+          
+      }
+  })
+});
+
+  $(document).ready(function(){
+    $('#calendario_vencimento_contas').datetimepicker({
+      pickTime: false,
+      language: 'pt-BR'
+    });
+});
+</script>

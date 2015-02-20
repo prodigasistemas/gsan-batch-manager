@@ -62,6 +62,26 @@ class ProcessosController < ApplicationController
     end
   end
 
+  def get_cronograma_info
+    grupo_faturamento = FaturamentoGrupo.find(params[:grupo_faturamento])
+
+    cronograma_mensal_faturamento_grupo = FaturamentoGrupoCronogramaMensal.joins(:faturamento_grupo).where('ftgr_id'=>grupo_faturamento.id, 'ftcm_amreferencia' => grupo_faturamento.ftgr_amreferencia)
+
+    if !cronograma_mensal_faturamento_grupo.empty?
+      data_vencimento = grupo_faturamento.dia_vencimento.to_s + "/" + grupo_faturamento.ftgr_amreferencia.to_s[4..5] + "/" + grupo_faturamento.ftgr_amreferencia.to_s[0..3]
+      data_vencimento = DateTime.strptime(data_vencimento, "%d/%m/%Y")
+    end
+
+    respond_to do |format|
+      format.json { 
+        render :json => {
+          :ano_mes_referencia => grupo_faturamento.ftgr_amreferencia, 
+          :data_vencimento => (data_vencimento.nil? && '' or data_vencimento.strftime("%d/%m/%Y"))
+        } 
+      }
+    end
+  end
+
   private
 
   def get_processos
