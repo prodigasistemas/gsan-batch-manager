@@ -76,7 +76,7 @@ class JobPreFaturamento
       grupo: @grupo,
       ultima_alteracao: Time.now,
       usuario: Usuario.first, # Recuperar o Usuário
-      situacao: ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:concluido]),
+      situacao: ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:em_espera]),
       agendamento: @agendamento,
       prioridade: @processo.prioridade
     }
