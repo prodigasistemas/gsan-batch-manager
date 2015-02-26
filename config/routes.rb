@@ -4,6 +4,8 @@ GsanBatchManager::Application.routes.draw do
     get :filtrar
     post :configura
     post :get_cronograma_info
+    post :pesquisar_setores_comerciais
+    post :pesquisar_rotas
   end
 
   resources :processos

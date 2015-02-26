@@ -5,7 +5,7 @@
 <div class="form-group">
   <%= label_tag "Grupo", nil, class: "col-sm-2 control-label" %>
   <div class="col-sm-6">
-    <%= select_tag :grupo, options_from_collection_for_select(FaturamentoGrupo.all.sort_by {|fg| fg.id }, "id", "descricao"), class: "form-control", id: "grupo_tag" %>
+    <%= select_tag :grupo, options_from_collection_for_select(FaturamentoGrupo.all.sort_by {|fg| fg.id }, "id", "descricao"), class: "form-control", include_blank: true, id: "grupos_faturamento" %>
   </div>
 </div>
 <div class="form-group">
@@ -29,23 +29,41 @@
 
 
 <%= render "shared/agendamento" %>
+
+<div class="form-group">
+  <%= label_tag "Localidade", nil, class: "col-sm-2 control-label" %>
+  <div class="col-sm-6">
+    <%= select_tag :localidade, options_for_select([]), include_blank: true, class: "form-control", id: "localidades" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= label_tag "Setor", nil, class: "col-sm-2 control-label" %>
+  <div class="col-sm-6">
+    <%= select_tag :setor, options_for_select([]), include_blank: true, class: "form-control", id: "setores_comerciais" %>
+  </div>
+</div>
+
 <div class="form-group">
   <%= label_tag "Rota", nil, class: "col-sm-2 control-label" %>
   <div class="col-sm-6">
-    <%= text_field_tag :rota, '', id: "rotas-search", placeholder: "id da Rota (Opcional)", class: "form-control" %>
+    <%= select_tag :id_rota, options_for_select([]), include_blank: true, class: "form-control", id: "id_rota" %>
   </div>
 </div>
+
 <div class="form-group">
   <div class="col-sm-offset-2 col-sm-10">
     <%= button_tag "Inserir", class: "btn btn-primary" %>
   </div>
 </div>
+
+
 <script>
-$( "#grupo_tag" ).change(function () {
+$( "#grupos_faturamento" ).change(function () {
 $.ajax({
     url: "/processos/get_cronograma_info",
     type: "POST",
-    data: {grupo_faturamento: $('#grupo_tag option:selected').val()},
+    data: {grupo_faturamento: $('#grupos_faturamento option:selected').val()},
     dataType: 'json',
     success: function(data) {
           if (data.ano_mes_referencia) {
@@ -61,6 +79,36 @@ $.ajax({
           
       }
   })
+
+$.ajax({
+    url: "/processos/get_cronograma_info",
+    type: "POST",
+    data: {grupo_faturamento: $('#grupos_faturamento option:selected').val()},
+    dataType: 'script'
+  })
+});
+
+$( "#localidades" ).change(function () {
+  $.ajax({
+    url: "/processos/pesquisar_setores_comerciais",
+    type: "POST",
+    data: {
+      localidade: $('#localidades option:selected').val(),
+      grupo_faturamento: $('#grupos_faturamento option:selected').val()},
+    dataType: 'script'
+  })
+});
+
+$( "#setores_comerciais" ).change(function () {
+  $.ajax({
+    url: "/processos/pesquisar_rotas",
+    type: "POST",
+    data: {
+      setor_comercial: $('#setores_comerciais option:selected').val(),
+      faturamento_grupo: $('#grupos_faturamento option:selected').val()
+    },
+    dataType: 'script'
+  })
 });
 
   $(document).ready(function(){
@@ -68,5 +116,7 @@ $.ajax({
       pickTime: false,
       language: 'pt-BR'
     });
+
+
 });
 </script>

@@ -12,6 +12,7 @@ class ProcessosController < ApplicationController
   end
 
   def new
+    @setores_comerciais = SetorComercial.all.sort_by {|setor| setor.id }
   end
 
   def update
@@ -72,13 +73,56 @@ class ProcessosController < ApplicationController
       data_vencimento = DateTime.strptime(data_vencimento, "%d/%m/%Y")
     end
 
+    rotas = Rota.where(:ftgr_id => params[:grupo_faturamento], :rota_icuso => 1).sort_by {|rota| rota.codigo_rota }
+    @rotas = rotas.map(&:codigo_rota).uniq
+    @setores_comerciais = rotas.map(&:stcm_id).uniq
+    @localidades = SetorComercial.where("stcm_id in (?)", @setores_comerciais).map(&:loca_id).uniq
+
+    @localidades = @localidades.insert(0, ["Selecione a localidade (Opcional)", 0])
+
     respond_to do |format|
+      format.js
       format.json { 
         render :json => {
           :ano_mes_referencia => grupo_faturamento.ftgr_amreferencia, 
           :data_vencimento => (data_vencimento.nil? && '' or data_vencimento.strftime("%d/%m/%Y"))
         } 
       }
+    end
+  end
+
+  def pesquisar_setores_comerciais
+    @rotas = []
+    if params[:localidade].empty?
+      @setores_comerciais = []
+    else
+      @setores_comerciais = SetorComercial.joins(:rotas).where(:loca_id => params[:localidade], :rota => {:ftgr_id => params[:grupo_faturamento]})
+      @setores_comerciais = @setores_comerciais.map{ |s| [s.stcm_cdsetorcomercial, s.id] }.uniq
+      # @setores_comerciais = @setores_comerciais.map { |s| [s.stcm_cdsetorcomercial, s.id] }
+      @setores_comerciais.insert(0, ["Selecione o setor comercial (Opcional)", 0])
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def pesquisar_rotas
+    if params[:setor_comercial].empty?
+      @rotas = []
+    else
+      @rotas = Rota.where(
+        :setor_comercial => params[:setor_comercial],
+        :indicador_uso => Rota::IndicadorUso[:ativado],
+        :faturamento_grupo => params[:faturamento_grupo]
+        ).sort_by {|rota| rota.rota_cdrota }
+      @rotas = @rotas.map { |r| [r.codigo_rota, r.id] }
+      @rotas.insert(0, ["Selecione uma rota (Opcional)",0])
+
+    end
+
+    respond_to do |format|
+      format.js
     end
   end
 
