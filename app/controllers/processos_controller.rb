@@ -98,7 +98,6 @@ class ProcessosController < ApplicationController
     else
       @setores_comerciais = SetorComercial.joins(:rotas).where(:loca_id => params[:localidade], :rota => {:ftgr_id => params[:grupo_faturamento]})
       @setores_comerciais = @setores_comerciais.map{ |s| [s.stcm_cdsetorcomercial, s.id] }.uniq
-      # @setores_comerciais = @setores_comerciais.map { |s| [s.stcm_cdsetorcomercial, s.id] }
       @setores_comerciais.insert(0, ["Selecione o setor comercial (Opcional)", 0])
     end
 
@@ -130,10 +129,15 @@ class ProcessosController < ApplicationController
 
   def get_processos
     @filtros = params
-    @filtros[:situacao] ||= "EM PROCESSAMENTO"
+    @filtros[:situacao] ||= ""
 
-    metodo_situacao = @filtros[:situacao].downcase.strip.gsub(" ", "_").gsub("[\.]", "")
-    @processos = ProcessoIniciado.send(metodo_situacao).page params[:page]
+    if @filtros[:situacao].empty?
+      @processos = ProcessoIniciado.send("todos").page params[:page]
+    else
+      metodo_situacao = @filtros[:situacao].downcase.strip.gsub(" ", "_").gsub("[\.]", "")
+      @processos = ProcessoIniciado.send(metodo_situacao).page params[:page]
+    end
+    
     @total = @processos.count
   end
 end

@@ -49,7 +49,7 @@
       <div class="form-group">
         <%= label_tag "Situação", nil, class: "col-sm-2 control-label" %>
         <div class="col-sm-8">
-          <%= select_tag :situacao, options_from_collection_for_select(ProcessoSituacao.all, "descricao", "descricao"), class: "form-control" %>
+          <%= select_tag :situacao, options_from_collection_for_select(ProcessoSituacao.all, "descricao", "descricao"), include_blank: true, class: "form-control" %>
         </div>
       </div>
       <div class="form-group">
