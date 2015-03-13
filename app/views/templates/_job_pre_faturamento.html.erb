@@ -5,7 +5,7 @@
 <div class="form-group">
   <%= label_tag "Grupo", nil, class: "col-sm-2 control-label" %>
   <div class="col-sm-6">
-    <%= select_tag :grupo, options_from_collection_for_select(FaturamentoGrupo.all.sort_by {|fg| fg.id }, "id", "descricao"), class: "form-control", include_blank: true, id: "grupos_faturamento" %>
+    <%= select_tag :grupo, options_for_select(@grupos), class: "form-control", include_blank: true, id: "grupos_faturamento" %>
   </div>
 </div>
 <div class="form-group">

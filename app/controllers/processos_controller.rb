@@ -28,6 +28,7 @@ class ProcessosController < ApplicationController
   end
 
   def configura
+    @grupos = Processo.pesquisar_grupo_cronograma(nil).map { |g| [g.descricao, g.id] }
   end
 
   def filtrar
@@ -66,12 +67,10 @@ class ProcessosController < ApplicationController
   def get_cronograma_info
     grupo_faturamento = FaturamentoGrupo.find(params[:grupo_faturamento])
 
-    cronograma_mensal_faturamento_grupo = FaturamentoGrupoCronogramaMensal.joins(:faturamento_grupo).where('ftgr_id'=>grupo_faturamento.id, 'ftcm_amreferencia' => grupo_faturamento.ftgr_amreferencia)
+    cronograma_mensal_faturamento_grupo = Processo.pesquisar_grupo_cronograma(grupo_faturamento)
 
-    if !cronograma_mensal_faturamento_grupo.empty?
-      data_vencimento = grupo_faturamento.dia_vencimento.to_s + "/" + grupo_faturamento.ftgr_amreferencia.to_s[4..5] + "/" + grupo_faturamento.ftgr_amreferencia.to_s[0..3]
-      data_vencimento = DateTime.strptime(data_vencimento, "%d/%m/%Y")
-    end
+    data_vencimento = grupo_faturamento.dia_vencimento.to_s + "/" + grupo_faturamento.ftgr_amreferencia.to_s[4..5] + "/" + grupo_faturamento.ftgr_amreferencia.to_s[0..3]
+    data_vencimento = DateTime.strptime(data_vencimento, "%d/%m/%Y")
 
     rotas = Rota.where(:ftgr_id => params[:grupo_faturamento], :rota_icuso => 1).sort_by {|rota| rota.codigo_rota }
     @rotas = rotas.map(&:codigo_rota).uniq
