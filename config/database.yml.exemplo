@@ -1,20 +1,23 @@
-development:
+default: &default
   adapter: postgresql
   encoding: unicode
-  database: comercial
-  host:
   pool: 5
+  host: localhost
+
+development:
+  <<: *default
+  database: comercial_development
   username:
   password:
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: comercial_test
+  username:
+  password:
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default
   database: comercial
   host:
   username:
