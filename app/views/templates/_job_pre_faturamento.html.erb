@@ -105,7 +105,8 @@ $( "#setores_comerciais" ).change(function () {
     type: "POST",
     data: {
       setor_comercial: $('#setores_comerciais option:selected').val(),
-      faturamento_grupo: $('#grupos_faturamento option:selected').val()
+      faturamento_grupo: $('#grupos_faturamento option:selected').val(),
+      ano_mes_referencia: $("#ano_mes_referencia").val()
     },
     dataType: 'script'
   })

@@ -15,6 +15,7 @@ class Rota < ActiveRecord::Base
   }
 
   belongs_to :setor_comercial, class_name: 'SetorComercial', foreign_key: 'stcm_id'
+  has_many :arquivo_texto_roteiro_empresa, class_name: 'ArquivoTextoRoteiroEmpresa', foreign_key: 'rota_id'
 
   scope :todas_do_grupo, ->(grupo) { where(ftgr_id: grupo) }
 

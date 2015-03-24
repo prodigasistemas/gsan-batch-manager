@@ -109,11 +109,27 @@ class ProcessosController < ApplicationController
     if params[:setor_comercial].empty?
       @rotas = []
     else
-      @rotas = Rota.where(
+      @rotas = []
+      localidade = SetorComercial.find(params[:setor_comercial]).localidade
+      rotas = Rota.where(
         :setor_comercial => params[:setor_comercial],
         :indicador_uso => Rota::IndicadorUso[:ativado],
         :faturamento_grupo => params[:faturamento_grupo]
         ).sort_by {|rota| rota.rota_cdrota }
+
+      rotas.each do |r|
+        arquivos_gerados = ArquivoTextoRoteiroEmpresa.where(rota_id: r.id, ano_mes_referencia: params[:ano_mes_referencia], loca_id: localidade.id, ftgr_id: params[:faturamento_grupo])  
+
+        if not arquivos_gerados.empty?
+          if (1..2).include?(arquivos_gerados.map(&:sitl_id))
+            @rotas << r
+          end
+        else
+          @rotas << r
+        end
+      end
+      
+    
       @rotas = @rotas.map { |r| [r.codigo_rota, r.id] }
       @rotas.insert(0, ["Selecione uma rota (Opcional)",0])
 

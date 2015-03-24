@@ -46,27 +46,30 @@ class JobPreFaturamento
 
     if not rota.nil?
       rotas << @rota.id
+      return rotas
     else
       if not @setor.nil?
-        rotas = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade}, :stcm_id => @setor, :ftgr_id => @grupo).map(&:id)
+        r = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade}, :stcm_id => @setor, :ftgr_id => @grupo).map(&:id)
       elsif not @localidade.nil?
-        rotas = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade},  :ftgr_id => @grupo).map(&:id)  
+        r = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade},  :ftgr_id => @grupo).map(&:id)  
       else
-        rotas = Rota.todas_do_grupo(@grupo).map(&:id)
+        r = Rota.todas_do_grupo(@grupo).map(&:id)
       end
     end
 
-    # if rota.nil?
-    #   if @localidade.nil?
-    #     rotas = Rota.todas_do_grupo(@grupo)
-    #   elsif @setor.nil?
-    #     rotas = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade},  :ftgr_id => @grupo).map(&:id)
-    #   else
-    #     rotas = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade}, :stcm_id => @setor, :ftgr_id => @grupo).map(&:id)
-    #   end
-    # else
-    #   rotas << @rota.id
-    # end
+    r.each do |r|
+      arquivos_gerados = ArquivoTextoRoteiroEmpresa.where(rota_id: r, ano_mes_referencia: @ano_mes_referencia, loca_id: @localidade, ftgr_id: @grupo)  
+
+      if not arquivos_gerados.empty?
+        if (1..2).include?(arquivos_gerados.map(&:sitl_id))
+          rotas << r
+        end
+      else
+        rotas << r
+      end
+    end
+
+    # rotas = rotas.joins(:arquivo_texto_roteiro_empresa).where("micromedicao.arquivo_texto_rot_empr.txre_amreferencia = #{@ano_mes_referencia} AND stce_id in (1,2)").map(&:id)
 
     rotas.to_s.gsub(/\[|\]/, "")
   end
