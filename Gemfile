@@ -1,8 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
-
-gem 'pry-rails'
 gem 'rails', '4.1.1'
 gem 'pg'
 gem 'rails-i18n'
@@ -16,12 +13,19 @@ gem 'kaminari'
 gem 'jquery-ui-rails'
 gem 'momentjs-rails', '>= 2.5.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.2'
-gem 'unicorn'
 
 group :development, :test do
-  gem 'pry'
+  gem 'pry-rails'
+  gem 'capistrano'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler', '~> 1.1.1'
+  gem 'capistrano-rails', '~> 1.1.1'
 end
 
 group :doc do
   gem 'sdoc', require: false
+end
+
+group :production do
+  gem 'unicorn'
 end
