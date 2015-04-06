@@ -61,7 +61,7 @@ class JobPreFaturamento
       arquivos_gerados = ArquivoTextoRoteiroEmpresa.where(rota_id: r, ano_mes_referencia: @ano_mes_referencia, loca_id: @localidade, ftgr_id: @grupo)  
 
       if not arquivos_gerados.empty?
-        if (1..2).include?(arquivos_gerados.map(&:sitl_id))
+        if (1..2).include?(arquivos_gerados.map(&:sitl_id)[0])
           rotas << r
         end
       else
