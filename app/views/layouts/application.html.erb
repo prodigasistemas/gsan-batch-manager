@@ -34,6 +34,14 @@
             <span class="glyphicon-class">Configurações</span>
           <% end %>
         </li>
+        <li>
+          <% if not session[:usuario].nil? %>
+            <%= link_to logout_path, class: "navbar-btn navbar-right" do %>
+              <span class="glyphicon glyphicon-off"></span>
+              <span class="glyphicon-class">Sair</span>
+            <% end %>
+          <% end %>
+        </li>
       </ul>
     </div>
   </div>
