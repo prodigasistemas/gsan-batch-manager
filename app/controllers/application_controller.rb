@@ -12,10 +12,38 @@ class ApplicationController < ActionController::Base
   end
 
   def verifica_usuario
-    # binding.pry
-    if session[:usuario].nil?
+    if not session[:usuario].present?
       render :template => 'error_pages/acesso_negado', :status => :forbidden
     end
+  end
+
+  def token_valid? usuario, token
+    token_batch_manager = gerar_token(usuario)
+    if token == token_batch_manager
+      session[:usuario] = usuario
+      redirect_to new_processo_path
+    else
+      session[:usuario] = nil
+      render :template => 'error_pages/acesso_negado', :status => :forbidden
+    end
+  end
+
+  protected
+
+  def gerar_token(usuario)
+    if usuario.blank?
+      data_hora = Time.now.strftime("%Y-%m-%d-%H")
+		  md5(data_hora)
+    else
+      data_hora = Time.now.strftime("%Y-%m-%d-%H")
+		  md5(usuario+data_hora)
+    end
+	end
+
+  private
+
+  def md5(s)
+  	Digest::MD5.hexdigest(s)
   end
 
 end

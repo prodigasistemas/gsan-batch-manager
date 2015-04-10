@@ -22,7 +22,7 @@ GsanBatchManager::Application.routes.draw do
 
   post :inserir_batch, controller: :batch
 
-  post :autenticar_usuario, :controller => 'usuarios', :action => 'autenticar_usuario'
+  get :autenticar_usuario, :controller => 'usuarios', :action => 'autenticar_usuario'
 
   get :logout, :controller => 'usuarios', :action => 'logout'
 

@@ -46,6 +46,18 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "description",                                     null: false
   end
 
+  create_table "changelog_batch_project", id: false, force: true do |t|
+    t.decimal "id",                     precision: 20, scale: 0, null: false
+    t.string  "applied_at",  limit: 25,                          null: false
+    t.string  "description",                                     null: false
+  end
+
+  create_table "changelog_operacional_project", id: false, force: true do |t|
+    t.decimal "id",                     precision: 20, scale: 0, null: false
+    t.string  "applied_at",  limit: 25,                          null: false
+    t.string  "description",                                     null: false
+  end
+
   create_table "cliente_endereco_max_cled_id", id: false, force: true do |t|
     t.integer "clie_id"
     t.integer "lgbr_id"
