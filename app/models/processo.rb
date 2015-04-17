@@ -22,7 +22,7 @@ class Processo < ActiveRecord::Base
   def self.pesquisar_grupo_cronograma(grupo)
 
     if grupo.nil?
-      grupo = FaturamentoGrupo.all  
+      grupo = FaturamentoGrupo.all
       @grupos = []
 
       grupo.each do |g|
@@ -35,10 +35,10 @@ class Processo < ActiveRecord::Base
 
       @grupos = @grupos.sort_by {|fg| fg.id }
     else
-      cronograma = FaturamentoGrupoCronogramaMensal.joins(:faturamento_grupo).where('ftgr_id'=>grupo.id, 'ftcm_amreferencia' => grupo.ftgr_amreferencia)      
+      cronograma = FaturamentoGrupoCronogramaMensal.joins(:faturamento_grupo).where('ftgr_id'=>grupo.id, 'ftcm_amreferencia' => grupo.ftgr_amreferencia)
       if not cronograma.empty?
           @grupos << grupo
-        end
+      end
     end
 
     @grupos

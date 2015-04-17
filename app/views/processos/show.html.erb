@@ -61,12 +61,14 @@
           </li>
         <% end %>
         <li class="list-group-item">
-          <strong>Progresso:</strong>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="<%= @percentual %>" aria-valuemin="0" aria-valuemax="100" style='<%= "width: #{@percentual}%;" %>'>
-              <%= @percentual %>%
+          <% @processo.atividades_exibidas.each do |atividade| %>
+            <strong><%= atividade.descricao.capitalize %></strong>
+            <div class="progress">
+              <div class="progress-bar" role="progressbar" aria-valuenow="<%= calcula_percentual_atividade(atividade) %>" aria-valuemin="0" aria-valuemax="100" style='<%= "width: #{calcula_percentual_atividade(atividade)}%;" %>'>
+                <%= calcula_percentual_atividade(atividade) %>%
+              </div>
             </div>
-          </div>
+          <% end %>
         </li>
         <li class="list-group-item">
           <span><%= link_to "Reiniciar", processo_path(@processo.id), method: :put, class: "btn btn-primary" if @processo.parado? %></span>

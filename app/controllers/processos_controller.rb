@@ -7,8 +7,6 @@ class ProcessosController < ApplicationController
 
   def show
     @processo = ProcessoIniciado.find(params[:id])
-    parametroPercentual = @processo.parametros.percentual.first
-    @percentual = parametroPercentual.valor rescue 0
   end
 
   def new
@@ -67,8 +65,6 @@ class ProcessosController < ApplicationController
   def get_cronograma_info
     grupo_faturamento = FaturamentoGrupo.find(params[:grupo_faturamento])
 
-    cronograma_mensal_faturamento_grupo = Processo.pesquisar_grupo_cronograma(grupo_faturamento)
-
     data_vencimento = grupo_faturamento.dia_vencimento.to_s + "/" + grupo_faturamento.ftgr_amreferencia.to_s[4..5] + "/" + grupo_faturamento.ftgr_amreferencia.to_s[0..3]
     data_vencimento = DateTime.strptime(data_vencimento, "%d/%m/%Y")
 
@@ -81,11 +77,11 @@ class ProcessosController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.json { 
+      format.json {
         render :json => {
-          :ano_mes_referencia => grupo_faturamento.ftgr_amreferencia, 
+          :ano_mes_referencia => grupo_faturamento.ftgr_amreferencia,
           :data_vencimento => (data_vencimento.nil? && '' or data_vencimento.strftime("%d/%m/%Y"))
-        } 
+        }
       }
     end
   end
@@ -118,7 +114,7 @@ class ProcessosController < ApplicationController
         ).sort_by {|rota| rota.rota_cdrota }
 
       rotas.each do |r|
-        arquivos_gerados = ArquivoTextoRoteiroEmpresa.where(rota_id: r.id, ano_mes_referencia: params[:ano_mes_referencia], loca_id: localidade.id, ftgr_id: params[:faturamento_grupo])  
+        arquivos_gerados = ArquivoTextoRoteiroEmpresa.where(rota_id: r.id, ano_mes_referencia: params[:ano_mes_referencia], loca_id: localidade.id, ftgr_id: params[:faturamento_grupo])
 
         if not arquivos_gerados.empty?
           if (1..2).include?(arquivos_gerados.map(&:sitl_id)[0])
@@ -128,8 +124,8 @@ class ProcessosController < ApplicationController
           @rotas << r
         end
       end
-      
-    
+
+
       @rotas = @rotas.map { |r| [r.codigo_rota, r.id] }
       @rotas.insert(0, ["Selecione uma rota (Opcional)",0])
 
@@ -152,7 +148,7 @@ class ProcessosController < ApplicationController
       metodo_situacao = @filtros[:situacao].downcase.strip.gsub(" ", "_").gsub("[\.]", "")
       @processos = ProcessoIniciado.send(metodo_situacao).page params[:page]
     end
-    
+
     @total = @processos.count
   end
 end
