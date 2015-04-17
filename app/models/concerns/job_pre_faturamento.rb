@@ -30,7 +30,6 @@ class JobPreFaturamento
       novo_processo_iniciado.save!
 
       PARAMETROS.keys.each do |parametro|
-        binding.pry
         novo_processo_iniciado.parametros << ProcessoParametro.new(nome: parametro, valor: self.send(PARAMETROS[parametro]))
       end
 
