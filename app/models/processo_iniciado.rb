@@ -10,6 +10,7 @@ class ProcessoIniciado < ActiveRecord::Base
   belongs_to :situacao, class_name: 'ProcessoSituacao', foreign_key: 'prst_id'
 
   has_many :parametros, class_name: "ProcessoParametro", foreign_key: 'proi_id'
+  has_many :atividades, class_name: "ControleProcessoAtividade", foreign_key: 'proi_id'
 
   alias_attribute 'id', 'proi_id'
   alias_attribute 'precedente', 'proi_idprecedente'
@@ -41,6 +42,10 @@ class ProcessoIniciado < ActiveRecord::Base
 
   def parado?
     ["CONCLUIDO", "CONCLUIDO COM ERRO", "EXECUCAO CANCELADA", "REINICIADO"].include? situacao.descricao
+  end
+
+  def atividades_exibidas
+    atividades.joins(:processo_atividade).where("processo_atividade.exibiremtela = 1")
   end
 
   class << self
