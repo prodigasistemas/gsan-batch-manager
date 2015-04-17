@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def verifica_usuario
+    return if Rails.env.development?
     if not session[:usuario].present?
       render :template => 'error_pages/acesso_negado', :status => :forbidden
     end
