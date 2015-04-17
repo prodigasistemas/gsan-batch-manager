@@ -30,6 +30,7 @@ class JobPreFaturamento
       novo_processo_iniciado.save!
 
       PARAMETROS.keys.each do |parametro|
+        binding.pry
         novo_processo_iniciado.parametros << ProcessoParametro.new(nome: parametro, valor: self.send(PARAMETROS[parametro]))
       end
 
@@ -46,19 +47,19 @@ class JobPreFaturamento
 
     if not rota.nil?
       rotas << @rota.id
-      return rotas
+      return rotas.to_s.gsub(/\[|\]/, "")
     else
       if not @setor.nil?
-        r = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade}, :stcm_id => @setor, :ftgr_id => @grupo).map(&:id)
+        rota = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade}, :stcm_id => @setor, :ftgr_id => @grupo).map(&:id)
       elsif not @localidade.nil?
-        r = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade},  :ftgr_id => @grupo).map(&:id)  
+        rota = Rota.joins(setor_comercial: :localidade).where(:localidade => {:loca_id => @localidade},  :ftgr_id => @grupo).map(&:id)
       else
-        r = Rota.todas_do_grupo(@grupo).map(&:id)
+        rota = Rota.todas_do_grupo(@grupo).map(&:id)
       end
     end
 
-    r.each do |r|
-      arquivos_gerados = ArquivoTextoRoteiroEmpresa.where(rota_id: r, ano_mes_referencia: @ano_mes_referencia, loca_id: @localidade, ftgr_id: @grupo)  
+    rota.each do |r|
+      arquivos_gerados = ArquivoTextoRoteiroEmpresa.where(rota_id: r, ano_mes_referencia: @ano_mes_referencia, loca_id: @localidade, ftgr_id: @grupo)
 
       if not arquivos_gerados.empty?
         if (1..2).include?(arquivos_gerados.map(&:sitl_id)[0])
