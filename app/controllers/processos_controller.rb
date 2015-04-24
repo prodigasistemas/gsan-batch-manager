@@ -15,14 +15,8 @@ class ProcessosController < ApplicationController
 
   def update
     @processo = ProcessoIniciado.find(params[:id])
-    @processo.situacao = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:reiniciado])
-    if @processo.save
-      flash[:notice] = "Processo reiniciado com sucesso!"
-      redirect_to processo_path(@processo)
-    else
-      flash[:error] = "Erro ao reiniciar processo!"
-      render :show
-    end
+    
+    reiniciar_processo @processo    
   end
 
   def configura
@@ -136,7 +130,37 @@ class ProcessosController < ApplicationController
     end
   end
 
+  def reiniciar_atividade
+    controle_processo = ControleProcessoAtividade.find(params[:id])
+    processo_iniciado = ProcessoIniciado.find(controle_processo.proi_id)
+    processo_atividade = ProcessoAtividade.find(controle_processo.proa_id)
+
+    adicionar_processo_parametro "atividadeIniciada", processo_atividade.ordemexecucao, processo_iniciado
+    reiniciar_processo processo_iniciado
+  end
+
   private
+
+  def reiniciar_processo(processo)
+    processo.situacao = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:reiniciado])
+    if processo.save
+      flash[:notice] = "Processo reiniciado com sucesso!"
+      redirect_to processo_path(processo)
+    else
+      flash[:error] = "Erro ao reiniciar processo!"
+      render :show
+    end
+  end
+
+  def adicionar_processo_parametro(nome_parametro, valor_parametro, processo_iniciado)
+    novo_parametro = ProcessoParametro.new
+    novo_parametro.nome = nome_parametro
+    novo_parametro.valor = valor_parametro
+    novo_parametro.temporario = ProcessoParametro::TEMPORARIO[:sim]
+    novo_parametro.processo_iniciado = processo_iniciado
+
+    novo_parametro.save!
+  end
 
   def get_processos
     @filtros = params

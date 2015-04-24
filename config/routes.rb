@@ -20,6 +20,12 @@ GsanBatchManager::Application.routes.draw do
     get :situacoes
   end
 
+  # post :reiniciar_atividade, controller: :processos, action: :reiniciar_atividade
+
+  post 'reiniciar_atividade/:id', to: 'processos#reiniciar_atividade', as: 'reiniciar_atividade'
+
+  # post "/processos/reiniciar_atividade/:id"
+
   post :inserir_batch, controller: :batch
 
   get :autenticar_usuario, :controller => 'usuarios', :action => 'autenticar_usuario'

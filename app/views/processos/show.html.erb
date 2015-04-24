@@ -62,6 +62,7 @@
         <% end %>
         <li class="list-group-item">
           <% @processo.atividades_exibidas.each do |atividade| %>
+            <%= link_to "", reiniciar_atividade_path(atividade.id), method: :post, title: "Reiniciar atividade", class: "glyphicon glyphicon-refresh reiniciar-atividade" if @processo.parado? %>
             <strong><%= atividade.descricao.capitalize %></strong>
             <div class="progress">
               <div class="progress-bar" role="progressbar" aria-valuenow="<%= calcula_percentual_atividade(atividade) %>" aria-valuemin="0" aria-valuemax="100" style='<%= "width: #{calcula_percentual_atividade(atividade)}%;" %>'>
