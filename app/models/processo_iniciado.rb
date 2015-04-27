@@ -45,7 +45,7 @@ class ProcessoIniciado < ActiveRecord::Base
   end
 
   def atividades_exibidas
-    atividades.joins(:processo_atividade).where("processo_atividade.exibiremtela = 1")
+    atividades.joins(:processo_atividade).where("processo_atividade.exibiremtela = 1").order("ordemexecucao")
   end
 
   class << self
