@@ -35,6 +35,8 @@ class JobPreFaturamento
 
       novo_processo_iniciado.save!
 
+      novo_processo_iniciado.iniciar_atividades rotas.split(',').size
+
       novo_processo_iniciado
     end
   end
