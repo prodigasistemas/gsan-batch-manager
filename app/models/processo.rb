@@ -4,6 +4,7 @@ class Processo < ActiveRecord::Base
 
   belongs_to :periodicidade, class_name: 'ProcessoTipo', foreign_key: 'prtp_id'
   has_many :processos_iniciados, class_name: 'ProcessoIniciado', foreign_key: 'proc_id'
+  has_many :atividades, class_name: "ProcessoAtividade", foreign_key: 'proc_id'
 
   alias_attribute "id", "proc_id"
   alias_attribute "nome", "proc_dsprocesso"

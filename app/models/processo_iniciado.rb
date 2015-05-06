@@ -24,6 +24,31 @@ class ProcessoIniciado < ActiveRecord::Base
 
   paginates_per 20
 
+  def iniciar_atividades total_itens
+      self.processo.atividades.each do |atividade|
+        controle = atividade.controle_atividades.build
+        controle.configura_atividade self, atividade, total_itens
+        controle.save
+      end    
+  end
+
+  def reiniciar (atividades)
+    self.transaction do
+      situacao_reiniciado = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:reiniciado])
+      self.situacao = situacao_reiniciado
+      atividades = self.atividades if atividades.empty?
+      atividades.each do |atividade|
+        atividade.situacao = situacao_reiniciado.id
+        atividade.itens_processados = 0
+        if not atividade.save
+          return false
+        end
+      end
+
+      save
+    end
+  end
+
   def nome
     processo.nome
   end

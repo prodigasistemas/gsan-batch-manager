@@ -135,15 +135,13 @@ class ProcessosController < ApplicationController
     processo_iniciado = ProcessoIniciado.find(controle_processo.proi_id)
     processo_atividade = ProcessoAtividade.find(controle_processo.proa_id)
 
-    adicionar_processo_parametro "atividadeIniciada", processo_atividade.ordemexecucao, processo_iniciado
-    reiniciar_processo processo_iniciado
+    reiniciar_processo processo_iniciado, [controle_processo]
   end
 
   private
 
-  def reiniciar_processo(processo)
-    processo.situacao = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:reiniciado])
-    if processo.save
+  def reiniciar_processo(processo, atividades = [])
+    if processo.reiniciar atividades
       flash[:notice] = "Processo reiniciado com sucesso!"
       redirect_to processo_path(processo)
     else
