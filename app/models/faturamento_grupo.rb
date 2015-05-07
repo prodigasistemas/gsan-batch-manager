@@ -19,4 +19,13 @@ class FaturamentoGrupo < ActiveRecord::Base
   alias_attribute 'dia_vencimento', 'ftgr_nndiavencimento'
   alias_attribute 'ultima_alteracao', 'ftgr_tmultimaalteracao'
   alias_attribute 'indicador_vencimento_mes_fatura', 'ftgr_icvencimentomesfatura'
+
+  def data_vencimento
+    data_vencimento = dia_vencimento.to_s + "/" + ftgr_amreferencia.to_s[4..5] + "/" + ftgr_amreferencia.to_s[0..3]
+    DateTime.strptime(data_vencimento, "%d/%m/%Y")
+  end
+
+  def data_vencimento_formatada
+    self.data_vencimento.blank? or self.data_vencimento.strftime("%d/%m/%Y")
+  end
 end

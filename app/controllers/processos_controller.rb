@@ -45,9 +45,8 @@ class ProcessosController < ApplicationController
 
   def destroy
     @processo = ProcessoIniciado.find(params[:id])
-    @processo.situacao = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:cancelado])
 
-    if @processo.save
+    if @processo.cancelar
       flash[:notice] = "O processo ##{@processo.id} entrou em processo de cancelamento da execução."
       redirect_to processo_path(@processo.id)
     else
@@ -59,22 +58,18 @@ class ProcessosController < ApplicationController
   def get_cronograma_info
     grupo_faturamento = FaturamentoGrupo.find(params[:grupo_faturamento])
 
-    data_vencimento = grupo_faturamento.dia_vencimento.to_s + "/" + grupo_faturamento.ftgr_amreferencia.to_s[4..5] + "/" + grupo_faturamento.ftgr_amreferencia.to_s[0..3]
-    data_vencimento = DateTime.strptime(data_vencimento, "%d/%m/%Y")
+    @rotas = Rota.codigos_rota_por_grupo(grupo_faturamento)
+    @setores_comerciais = Rota.setor_comercial_por_grupo(grupo_faturamento)
 
-    rotas = Rota.where(:ftgr_id => params[:grupo_faturamento], :rota_icuso => 1).sort_by {|rota| rota.codigo_rota }
-    @rotas = rotas.map(&:codigo_rota).uniq
-    @setores_comerciais = rotas.map(&:stcm_id).uniq
-    @localidades = SetorComercial.where("stcm_id in (?)", @setores_comerciais).map(&:loca_id).uniq
-
-    @localidades = @localidades.insert(0, ["Selecione a localidade (Opcional)", 0])
+    @localidades = [["Selecione a localidade (Opcional)", 0]]
+    @localidades << SetorComercial.localidades_por_setores_comerciais(@setores_comerciais)
 
     respond_to do |format|
       format.js
       format.json {
         render :json => {
-          :ano_mes_referencia => grupo_faturamento.ftgr_amreferencia,
-          :data_vencimento => (data_vencimento.nil? && '' or data_vencimento.strftime("%d/%m/%Y"))
+          ano_mes_referencia: grupo_faturamento.ftgr_amreferencia,
+          data_vencimento: grupo_faturamento.data_vencimento_formatada
         }
       }
     end

@@ -7,4 +7,8 @@ class SetorComercial < ActiveRecord::Base
 
 	alias_attribute 'id', 'stcm_id'
 	alias_attribute 'setor_comercial', 'stcm_nmsetorcomercial'
+
+	def self.localidades_por_setores_comerciais(setores_comerciais)
+		where("stcm_id in (?)", setores_comerciais).map(&:loca_id).uniq
+	end
 end
