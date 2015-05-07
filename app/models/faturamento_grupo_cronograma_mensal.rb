@@ -8,4 +8,9 @@ class FaturamentoGrupoCronogramaMensal < ActiveRecord::Base
   alias_attribute 'id', 'ftcm_id'
   alias_attribute 'ano_mes_referencia', 'ftcm_amreferencia'
   alias_attribute 'ultima_alteracao', 'ftcm_tmultimaalteracao'
+
+  def self.possui_faturamento_grupo? grupo
+    self.count(joins: :faturamento_grupo,
+               where: ["ftgr_id = ?, ftcm_amreferencia = ?", grupo.id, grupo.ftgr_amreferencia]) > 0
+  end
 end

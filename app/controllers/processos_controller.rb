@@ -15,8 +15,8 @@ class ProcessosController < ApplicationController
 
   def update
     @processo = ProcessoIniciado.find(params[:id])
-    
-    reiniciar_processo @processo    
+
+    reiniciar_processo @processo
   end
 
   def configura
@@ -133,7 +133,6 @@ class ProcessosController < ApplicationController
   def reiniciar_atividade
     controle_processo = ControleProcessoAtividade.find(params[:id])
     processo_iniciado = ProcessoIniciado.find(controle_processo.proi_id)
-    processo_atividade = ProcessoAtividade.find(controle_processo.proa_id)
 
     reiniciar_processo processo_iniciado, [controle_processo]
   end
