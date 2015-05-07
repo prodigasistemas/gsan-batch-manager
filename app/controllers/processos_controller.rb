@@ -60,9 +60,9 @@ class ProcessosController < ApplicationController
 
     @rotas = Rota.codigos_rota_por_grupo(grupo_faturamento)
     @setores_comerciais = Rota.setor_comercial_por_grupo(grupo_faturamento)
-
+    
     @localidades = [["Selecione a localidade (Opcional)", 0]]
-    @localidades << SetorComercial.localidades_por_setores_comerciais(@setores_comerciais)
+    @localidades.concat SetorComercial.localidades_por_setores_comerciais(@setores_comerciais)
 
     respond_to do |format|
       format.js
