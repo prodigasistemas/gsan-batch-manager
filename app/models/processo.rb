@@ -21,17 +21,19 @@ class Processo < ActiveRecord::Base
   end
 
   def self.pesquisar_grupo_cronograma(grupos)
-    grupos ||= FaturamentoGrupo.all
+    if grupos.blank?
+      @grupos_cronograma = []
+      grupos ||= FaturamentoGrupo.all
+    end
+
     get_grupos_cronograma(grupos)
   end
 
   def self.get_grupos_cronograma(grupos)
-    grupos_cronograma = []
-
     grupos.each do |grupo|
-      grupos_cronograma << grupo unless FaturamentoGrupoCronogramaMensal.possui_faturamento_grupo?(grupo)
+      @grupos_cronograma << grupo if FaturamentoGrupoCronogramaMensal.possui_faturamento_grupo?(grupo)
     end
 
-    grupos_cronograma.sort_by { |faturamento_grupo| faturamento_grupo.id }
+    @grupos_cronograma.sort_by { |faturamento_grupo| faturamento_grupo.id }
   end
 end
