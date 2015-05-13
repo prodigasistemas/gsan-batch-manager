@@ -29,7 +29,7 @@ class ProcessoIniciado < ActiveRecord::Base
         controle = atividade.controle_atividades.build
         controle.configura_atividade self, atividade, total_itens
         controle.save
-      end    
+      end
   end
 
   def reiniciar (atividades)
@@ -47,6 +47,11 @@ class ProcessoIniciado < ActiveRecord::Base
 
       save
     end
+  end
+
+  def cancelar
+    self.situacao = ProcessoSituacao.find(ProcessoSituacao::SITUACAO[:cancelado])
+    self.save
   end
 
   def nome

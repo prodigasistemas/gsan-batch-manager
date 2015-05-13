@@ -17,7 +17,7 @@ class Rota < ActiveRecord::Base
   belongs_to :setor_comercial, class_name: 'SetorComercial', foreign_key: 'stcm_id'
   has_many :arquivo_texto_roteiro_empresa, class_name: 'ArquivoTextoRoteiroEmpresa', foreign_key: 'rota_id'
 
-  scope :todas_do_grupo, ->(grupo) { where(ftgr_id: grupo) }
+  scope :todas_do_grupo, ->(grupo) { where(ftgr_id: grupo, rota_icuso: 1).order(:rota_cdrota) }
 
   def self.rota_pertence_ao_grupo?(rota_id, grupo_id)
     begin
@@ -26,5 +26,13 @@ class Rota < ActiveRecord::Base
     rescue
       false
     end
+  end
+
+  def self.codigos_rota_por_grupo(grupo)
+    todas_do_grupo(grupo.id).map(&:codigo_rota).uniq
+  end
+
+  def self.setor_comercial_por_grupo(grupo)
+    todas_do_grupo(grupo.id).map(&:stcm_id).uniq
   end
 end
