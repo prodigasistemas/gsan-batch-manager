@@ -36,7 +36,7 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets tmp/sessions public/asse
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :normalize_asset_timestamps, %{public/images public/javascripts public/stylesheets}
+set :normalize_asset_timestamps, %{public/assets}
 
 namespace :deploy do
   %w[start stop restart upgrade].each do |command|
