@@ -1,0 +1,1 @@
+Rails.application.config.assets.precompile += ['job_pre_faturamento.js', 'processos.js']
